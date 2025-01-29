@@ -14,7 +14,7 @@ struct Field {
     cols: i32,
     cells: Vec<Cell>,
     bombs: i32,
-	cursor: Point
+    cursor: Point,
 }
 
 #[derive(Clone, Copy)]
@@ -24,10 +24,10 @@ struct Point {
 }
 
 impl Field {
-	pub fn open(&mut self) {
-		self.open_rec(self.cursor);
-	}
-	
+    pub fn open(&mut self) {
+        self.open_rec(self.cursor);
+    }
+
     fn open_rec(&mut self, cursor: Point) {
         let mut cell = self.get_cell_bound(cursor.x, cursor.y);
         if !cell.is_open {
@@ -217,8 +217,8 @@ impl Field {
 }
 
 impl Display for Field {
-	fn fmt(&self, _: &mut std::fmt::Formatter) -> std::fmt::Result {
-		for i in 0..self.rows {
+    fn fmt(&self, _: &mut std::fmt::Formatter) -> std::fmt::Result {
+        for i in 0..self.rows {
             for j in 0..self.cols {
                 if i == self.cursor.x && j == self.cursor.y {
                     print!("[")
@@ -252,15 +252,14 @@ impl Display for Field {
             }
             print!("\n");
         }
-		Ok(())
-	}
+        Ok(())
+    }
 }
-
 
 use console;
 use std;
 fn main() {
-	let mut rows = 10;
+    let mut rows = 10;
     let mut cols = 10;
     let mut bombs = 10;
     let mut field: Field = Field {
@@ -275,10 +274,7 @@ fn main() {
             };
             0
         ],
-		cursor: Point {
-			x: 0,
-			y: 0
-		}
+        cursor: Point { x: 0, y: 0 },
     };
     let args: Vec<String> = std::env::args().collect();
     if args.len() > 1 {
@@ -295,7 +291,10 @@ fn main() {
     }
     field.resize(rows, cols);
     field.put_bombs(bombs);
-	field.cursor = Point { x: rows/2, y: cols/2 };
+    field.cursor = Point {
+        x: rows / 2,
+        y: cols / 2,
+    };
 
     let stdout = console::Term::buffered_stdout();
 
